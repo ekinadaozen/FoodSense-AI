@@ -32,21 +32,24 @@ public class GeminiService {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    @Value("${gemini.api.key}")
-    private String apiKey;
-
-    @Value("${gemini.api.model}")
-    private String model;
+    private final String apiKey;
+    private final String model;
 
     /**
      * Constructs a new {@code GeminiService} with the required dependencies.
      *
      * @param webClient    the {@link WebClient} configured for the Gemini API base URL
+     * @param apiKey       the Gemini API key
+     * @param model        the Gemini AI model
      * @param objectMapper the Jackson {@link ObjectMapper} for JSON processing
      */
     public GeminiService(@Qualifier("geminiWebClient") final WebClient webClient,
+                         @Value("${gemini.api.key}") final String apiKey,
+                         @Value("${gemini.api.model}") final String model,
                          final ObjectMapper objectMapper) {
         this.webClient = webClient;
+        this.apiKey = apiKey;
+        this.model = model;
         this.objectMapper = objectMapper;
     }
 

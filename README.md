@@ -1,4 +1,4 @@
-# 🍕🤖 FoodSense AI — Intelligent Food Delivery Feedback Analysis
+#  FoodSense AI — Intelligent Food Delivery Feedback Analysis
 
 [![Java 21](https://img.shields.io/badge/Java-21-orange?logo=openjdk)](https://openjdk.org/projects/jdk/21/)
 [![Spring Boot 3](https://img.shields.io/badge/Spring%20Boot-3.4-green?logo=springboot)](https://spring.io/projects/spring-boot)
@@ -12,7 +12,7 @@
 
 ---
 
-## 📖 Project Description
+##  Project Description
 
 **FoodSense AI** is a backend system designed for food delivery platforms that need to process thousands of customer complaints efficiently. Instead of manually reading each complaint, the system uses **Google Gemini** (Large Language Model) to automatically:
 
@@ -28,19 +28,19 @@ The system uses **Apache Kafka** for asynchronous, decoupled processing — mean
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```mermaid
 graph LR
-    A["👤 Customer"] -->|POST /api/complaints| B["🌐 REST API<br/>Spring Boot"]
-    B -->|Save| C["🐘 PostgreSQL"]
-    B -->|Publish complaint ID| D["📨 Apache Kafka<br/>complaint-topic"]
-    D -->|Consume| E["🤖 AI Consumer"]
+    A[" Customer"] -->|POST /api/complaints| B[" REST API<br/>Spring Boot"]
+    B -->|Save| C[" PostgreSQL"]
+    B -->|Publish complaint ID| D[" Apache Kafka<br/>complaint-topic"]
+    D -->|Consume| E[" AI Consumer"]
     E -->|Fetch complaint| C
-    E -->|Analyze| F["✨ Google Gemini<br/>LLM API"]
+    E -->|Analyze| F[" Google Gemini<br/>LLM API"]
     F -->|JSON response| E
     E -->|Save analysis| C
-    G["👨‍💼 Support Team"] -->|GET /api/analyses| B
+    G[" Support Team"] -->|GET /api/analyses| B
     B -->|Query| C
 
     style A fill:#FFE0B2,stroke:#F57C00,color:#000
@@ -54,23 +54,23 @@ graph LR
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
-| Layer               | Technology           | Version | Purpose                                  |
-| ------------------- | -------------------- | ------- | ---------------------------------------- |
-| **Language**        | Java                 | 21      | Core programming language (LTS)          |
-| **Framework**       | Spring Boot          | 3.4.x   | Application framework & dependency injection |
-| **Messaging**       | Apache Kafka         | 3.7     | Asynchronous event-driven processing     |
-| **Database**        | PostgreSQL           | 16      | Persistent storage for complaints & analyses |
-| **AI/LLM**         | Google Gemini        | 2.0 Flash | Natural language analysis of complaints  |
-| **API Docs**        | SpringDoc OpenAPI    | 2.8     | Swagger UI & OpenAPI 3.0 spec            |
-| **Containerization**| Docker Compose       | 3.8     | Multi-container orchestration            |
-| **Build Tool**      | Apache Maven         | 3.9+    | Build, dependency management, testing    |
-| **Testing**         | JUnit 5 + Mockito    | 5.x     | Unit and integration testing             |
+| Layer               | Technology           | Version   | Purpose                                     |
+| ------------------- | -------------------- | -------   | ----------------------------------------    |
+| **Language**        | Java                 | 21        | Core programming language (LTS)             |
+| **Framework**       | Spring Boot          | 3.4.x     | Application framework & dependency injection|
+| **Messaging**       | Apache Kafka         | 3.7       | Asynchronous event-driven processing        |
+| **Database**        | PostgreSQL           | 16        | Persistent storage for complaints & analyses|
+| **AI/LLM**          | Google Gemini        | 2.0 Flash | Natural language analysis of complaints     |
+| **API Docs**        | SpringDoc OpenAPI    | 2.8       | Swagger UI & OpenAPI 3.0 spec               |
+| **Containerization**| Docker Compose       | 3.8       | Multi-container orchestration               |
+| **Build Tool**      | Apache Maven         | 3.9+      | Build, dependency management, testing       |
+| **Testing**         | JUnit 5 + Mockito    | 5.x       | Unit and integration testing                |
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - ✅ **RESTful Complaint API** — Submit and retrieve customer complaints
 - ✅ **Event-Driven Processing** — Kafka decouples submission from analysis
@@ -83,7 +83,7 @@ graph LR
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Clone & Configure
 
@@ -140,11 +140,11 @@ curl http://localhost:8080/api/analyses | jq
 | GET    | `/api/analyses`                       | Retrieve all complaint analyses            |
 | GET    | `/api/analyses/complaint/{complaintId}` | Retrieve analysis for a specific complaint |
 
-> 📘 Full API documentation with request/response examples: [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)
+>  Full API documentation with request/response examples: [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)
 
 ---
 
-## 📨 Kafka Flow (Brief)
+##  Kafka Flow (Brief)
 
 ```
 Customer submits complaint
@@ -159,11 +159,11 @@ Customer submits complaint
 
 Kafka enables **asynchronous processing** — the customer gets an instant response while AI analysis happens in the background. This architecture scales horizontally by adding more consumer instances.
 
-> 📘 Full Kafka documentation: [docs/KAFKA_FLOW.md](docs/KAFKA_FLOW.md)
+>  Full Kafka documentation: [docs/KAFKA_FLOW.md](docs/KAFKA_FLOW.md)
 
 ---
 
-## 🤖 Gemini Integration (Brief)
+##  Gemini Integration (Brief)
 
 The system sends a carefully engineered prompt to **Google Gemini 2.0 Flash** that instructs the LLM to analyze the complaint and return a structured JSON object with:
 
@@ -178,11 +178,11 @@ The system sends a carefully engineered prompt to **Google Gemini 2.0 Flash** th
 
 The response is parsed and stored as a `ComplaintAnalysis` entity linked to the original complaint.
 
-> 📘 Full Gemini integration documentation: [docs/GEMINI_INTEGRATION.md](docs/GEMINI_INTEGRATION.md)
+>  Full Gemini integration documentation: [docs/GEMINI_INTEGRATION.md](docs/GEMINI_INTEGRATION.md)
 
 ---
 
-## 💡 Example Request & Response
+##  Example Request & Response
 
 ### Submit a Complaint
 
@@ -231,13 +231,13 @@ curl -X POST http://localhost:8080/api/complaints \
 
 ---
 
-## 📸 Screenshots
+##  Screenshots
 
-> 🖼️ _Screenshots coming soon — Swagger UI, API responses, Kafka processing logs._
+>  _Screenshots coming soon — Swagger UI, API responses, Kafka processing logs._
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 foodsense-ai/
@@ -267,7 +267,7 @@ foodsense-ai/
 ├── Dockerfile                    # Multi-stage build
 ├── .env                          # Environment variables (GEMINI_API_KEY)
 ├── pom.xml                       # Maven dependencies
-├── docs/                         # 📘 Comprehensive documentation
+├── docs/                         #  Comprehensive documentation
 ├── README.md                     # You are here!
 ├── CHANGELOG.md                  # Version history
 ├── TASKS.md                      # Task tracking
@@ -276,7 +276,7 @@ foodsense-ai/
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Key Application Properties
 
@@ -317,7 +317,7 @@ gemini:
 
 ---
 
-## 🧪 Running Tests
+##  Running Tests
 
 ```bash
 # Run all tests
@@ -330,11 +330,11 @@ mvn test -Dtest.verbose=true
 mvn test -Dtest=ComplaintServiceTest
 ```
 
-> 📘 Full testing documentation: [docs/TESTING.md](docs/TESTING.md)
+>  Full testing documentation: [docs/TESTING.md](docs/TESTING.md)
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Here's how:
 
@@ -350,15 +350,7 @@ Please ensure:
 - Code follows the existing project conventions
 - Documentation is updated if needed
 
----
-
-## 📜 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📚 Documentation
+##  Documentation
 
 | Document | Description |
 | --- | --- |
@@ -375,6 +367,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 <p align="center">
-  Built with ❤️ for learning and portfolio building.<br/>
+  Built for learning and portfolio building.<br/>
   <strong>FoodSense AI</strong> — Turning complaints into insights.
 </p>
