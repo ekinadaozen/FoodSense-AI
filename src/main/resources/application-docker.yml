@@ -1,0 +1,18 @@
+# ============================================
+# FoodSense AI - Docker Profile Configuration
+# ============================================
+# Overrides for running inside Docker Compose
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/foodsense_db
+    username: foodsense
+    password: foodsense_secret
+
+  kafka:
+    bootstrap-servers: kafka:29092
+
+logging:
+  level:
+    root: INFO
+    com.foodsense.ai: INFO
