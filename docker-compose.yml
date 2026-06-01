@@ -2,24 +2,25 @@ version: '3.8'
 
 services:
   # ─────────────────────────────────────────────
-  # PostgreSQL Database
+  # Oracle Database Free
   # ─────────────────────────────────────────────
-  postgres:
-    image: postgres:16-alpine
-    container_name: foodsense-postgres
+  oracle:
+    image: gvenzl/oracle-free:23-slim
+    container_name: foodsense-oracle
     environment:
-      POSTGRES_DB: foodsense_db
-      POSTGRES_USER: foodsense
-      POSTGRES_PASSWORD: foodsense_secret
+      ORACLE_PASSWORD: foodsense_secret
+      APP_USER: foodsense
+      APP_USER_PASSWORD: foodsense_secret
     ports:
-      - "5432:5432"
+      - "1521:1521"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - oracle_data:/opt/oracle/oradata
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U foodsense -d foodsense_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
     networks:
       - foodsense-network
 
@@ -78,13 +79,13 @@ services:
       dockerfile: Dockerfile
     container_name: foodsense-app
     depends_on:
-      postgres:
+      oracle:
         condition: service_healthy
       kafka:
         condition: service_started
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/foodsense_db
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle:1521/FREEPDB1
       SPRING_DATASOURCE_USERNAME: foodsense
       SPRING_DATASOURCE_PASSWORD: foodsense_secret
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
@@ -98,7 +99,7 @@ services:
 # Volumes
 # ─────────────────────────────────────────────
 volumes:
-  postgres_data:
+  oracle_data:
     driver: local
 
 # ─────────────────────────────────────────────

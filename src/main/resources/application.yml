@@ -6,12 +6,12 @@ spring:
   application:
     name: foodsense-ai
 
-  # ── PostgreSQL DataSource ──────────────────
+  # ── Oracle DataSource ───────────────────────
   datasource:
-    url: jdbc:postgresql://localhost:5432/foodsense_db
+    url: jdbc:oracle:thin:@localhost:1521/FREEPDB1
     username: foodsense
     password: foodsense_secret
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: oracle.jdbc.OracleDriver
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
@@ -25,7 +25,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.OracleDialect
     open-in-view: false
 
   # ── Apache Kafka ───────────────────────────

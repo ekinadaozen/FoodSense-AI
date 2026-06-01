@@ -5,7 +5,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/foodsense_db
+    url: jdbc:oracle:thin:@oracle:1521/FREEPDB1
     username: foodsense
     password: foodsense_secret
 
