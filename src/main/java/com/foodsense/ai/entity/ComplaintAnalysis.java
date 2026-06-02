@@ -48,7 +48,7 @@ public class ComplaintAnalysis {
     /**
      * The UUID of the associated {@link Complaint} that was analyzed.
      */
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private UUID complaintId;
 
     /**

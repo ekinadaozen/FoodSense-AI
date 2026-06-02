@@ -6,6 +6,7 @@ import com.foodsense.ai.entity.ComplaintAnalysis;
 import com.foodsense.ai.enums.Category;
 import com.foodsense.ai.enums.Priority;
 import com.foodsense.ai.enums.Sentiment;
+import com.foodsense.ai.repository.ComplaintAnalysisRepository;
 import com.foodsense.ai.repository.ComplaintRepository;
 import com.foodsense.ai.service.AnalysisService;
 import com.foodsense.ai.service.GeminiService;
@@ -22,6 +23,7 @@ import java.util.UUID;
  *
  * <p>When a complaint ID is received from the Kafka complaint topic, this consumer:
  * <ol>
+ *   <li>Checks whether an analysis already exists (idempotency guard)</li>
  *   <li>Fetches the corresponding {@link Complaint} from the database</li>
  *   <li>Sends the complaint text to the Gemini AI service for analysis</li>
  *   <li>Maps the AI response to a {@link ComplaintAnalysis} entity</li>
@@ -38,6 +40,7 @@ import java.util.UUID;
 public class ComplaintConsumer {
 
     private final ComplaintRepository complaintRepository;
+    private final ComplaintAnalysisRepository complaintAnalysisRepository;
     private final GeminiService geminiService;
     private final AnalysisService analysisService;
 
@@ -59,6 +62,12 @@ public class ComplaintConsumer {
 
         try {
             final UUID id = UUID.fromString(complaintId);
+
+            // Idempotency guard: skip if analysis already exists for this complaint
+            if (complaintAnalysisRepository.findByComplaintId(id).isPresent()) {
+                log.info("Analysis already exists for complaint [{}]. Skipping duplicate processing.", complaintId);
+                return;
+            }
 
             final Optional<Complaint> optionalComplaint = complaintRepository.findById(id);
             if (optionalComplaint.isEmpty()) {
